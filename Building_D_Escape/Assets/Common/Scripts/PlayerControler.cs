@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerControler : MonoBehaviour
 {
 
     public float moveSpeed;
-    private bool isMoving;
+
+    public bool isMoving;
+
     private Vector2 movementInput;
     private Animator animator;
 
@@ -24,19 +26,26 @@ public class PlayerController : MonoBehaviour
         movementInput.x = Input.GetAxisRaw("Horizontal");
         movementInput.y = Input.GetAxisRaw("Vertical");
 
-        Debug.Log("X: " + movementInput.x);
-        Debug.Log("Y: " + movementInput.y);
+        // Debug.Log("X: " + movementInput.x);
+        // Debug.Log("Y: " + movementInput.y);
 
         if (movementInput != Vector2.zero)
         {
+
             isMoving = true;
+            animator.SetBool("isMoving", true);
             animator.SetFloat("MoveX", movementInput.x);
             animator.SetFloat("MoveY", movementInput.y);
 
             Vector2 targetPosition = (Vector2)transform.position + movementInput * moveSpeed * Time.deltaTime;
+            
             transform.position = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
             isMoving = false;
+            
+        }else {
+            animator.SetBool("isMoving", false);
         }
+          
+
     }
-    // animator.SetBool("isMoving", isMoving)
 }
