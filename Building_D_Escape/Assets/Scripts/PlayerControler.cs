@@ -1,61 +1,51 @@
-
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerControler : MonoBehaviour
 {
+
     public float moveSpeed;
 
-    private bool isMoving;
+    public bool isMoving;
 
-    private Vector2 input;
-
+    private Vector2 movementInput;
     private Animator animator;
 
-    private void Awake() {
+    private void Awake()
+    {
         animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        transform.position = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
     private void Update()
     {
-        if (!isMoving)
+        movementInput.x = Input.GetAxisRaw("Horizontal");
+        movementInput.y = Input.GetAxisRaw("Vertical");
+
+        // Debug.Log("X: " + movementInput.x);
+        // Debug.Log("Y: " + movementInput.y);
+
+        if (movementInput != Vector2.zero)
         {
-            input.x = Input.GetAxisRaw("Horizontal");
-            input.y = Input.GetAxisRaw("Vertical");
 
-            if (input.x != 0) input.y = 0;
+            isMoving = true;
+            animator.SetBool("isMoving", true);
+            animator.SetFloat("MoveX", movementInput.x);
+            animator.SetFloat("MoveY", movementInput.y);
 
-            if (input != Vector2.zero)
-            {
-                animator.SetFloat("MoveX", input.x);
-                animator.SetFloat("MoveY", input.y);
-
-                var targetPos = transform.position;
-                targetPos.x += input.x;
-                targetPos.y += input.y;
-
-                StartCoroutine(Move(targetPos));
-            }
-
+            Vector2 targetPosition = (Vector2)transform.position + movementInput * moveSpeed * Time.deltaTime;
+            
+            transform.position = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
+            isMoving = false;
+            
+        }else {
+            animator.SetBool("isMoving", false);
         }
+          
+
     }
-
-    IEnumerator Move(Vector3 targetPos)
-    {
-        isMoving = true;
-
-        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-            yield return null;
-        }
-        transform.position = targetPos;
-
-        isMoving = false;
-    }
-
-
-
 }
