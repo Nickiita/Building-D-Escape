@@ -5,7 +5,6 @@ public class PlayerControler : MonoBehaviour
 {
 
     public float moveSpeed;
-
     public bool isMoving;
 
     private Vector2 movementInput;
@@ -25,10 +24,8 @@ public class PlayerControler : MonoBehaviour
     {
         movementInput.x = Input.GetAxisRaw("Horizontal");
         movementInput.y = Input.GetAxisRaw("Vertical");
-
         // Debug.Log("X: " + movementInput.x);
         // Debug.Log("Y: " + movementInput.y);
-
         if (movementInput != Vector2.zero)
         {
 
