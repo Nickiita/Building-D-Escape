@@ -40,6 +40,7 @@ public class PlayerControler : MonoBehaviour
 
 
                     // collision
+            Debug.Log(IsWalkable(targetPos));
             if (IsWalkable(targetPos)) {
                 
 
