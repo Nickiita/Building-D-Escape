@@ -10,8 +10,6 @@ public class PlayerControler : MonoBehaviour
     private Vector2 movementInput;
     private Animator animator;
 
-    public LayerMask solidObjectsLayer;
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -31,40 +29,20 @@ public class PlayerControler : MonoBehaviour
         if (movementInput != Vector2.zero)
         {
 
-            Vector2 targetPos = (Vector2)transform.position + movementInput * moveSpeed * Time.deltaTime;
-            // animator.SetBool("isMoving", true);
-            // animator.SetFloat("MoveX", movementInput.x);
-            // animator.SetFloat("MoveY", movementInput.y);
-
-            // transform.position = new Vector3(targetPos.x, targetPos.y, transform.position.z);
-
-
-                    // collision
-            Debug.Log(IsWalkable(targetPos));
-            if (IsWalkable(targetPos)) {
-                
-
+            isMoving = true;
             animator.SetBool("isMoving", true);
             animator.SetFloat("MoveX", movementInput.x);
             animator.SetFloat("MoveY", movementInput.y);
 
-            transform.position = new Vector3(targetPos.x, targetPos.y, transform.position.z);
-
-            }
+            Vector2 targetPosition = (Vector2)transform.position + movementInput * moveSpeed * Time.deltaTime;
+            
+            transform.position = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
+            isMoving = false;
             
         }else {
             animator.SetBool("isMoving", false);
         }
           
 
-    }
-
-    private bool IsWalkable(Vector3 targetPos) {
-        if(Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer) != null ) {
-            return false;
-
-        }else {
-            return true;
-        }
     }
 }
