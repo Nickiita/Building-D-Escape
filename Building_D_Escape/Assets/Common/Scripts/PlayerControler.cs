@@ -12,6 +12,8 @@ public class PlayerControler : MonoBehaviour
 
     public LayerMask solidObjectsLayer;
 
+    private Vector2 lastMovementDirection;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -20,7 +22,6 @@ public class PlayerControler : MonoBehaviour
 
     private void Start()
     {
-
         transform.position = new Vector2(0, 0);
     }
 
@@ -32,11 +33,12 @@ public class PlayerControler : MonoBehaviour
         if (movementInput != Vector2.zero)
         {
             Move();
+            lastMovementDirection = movementInput;
         }
 
         animator.SetBool("isMoving", movementInput != Vector2.zero);
-        animator.SetFloat("MoveX", movementInput.x);
-        animator.SetFloat("MoveY", movementInput.y);
+        animator.SetFloat("MoveX", lastMovementDirection.x);
+        animator.SetFloat("MoveY", lastMovementDirection.y);
     }
 
     private void Move()
@@ -51,7 +53,6 @@ public class PlayerControler : MonoBehaviour
         {
             Vector3 checkPosX = new Vector3(targetPos.x, transform.position.y, transform.position.z);
             Vector3 checkPosY = new Vector3(transform.position.x, targetPos.y, transform.position.z);
-
             if (IsWalkable(checkPosX))
             {
                 transform.position = checkPosX;
@@ -69,8 +70,7 @@ public class PlayerControler : MonoBehaviour
         Vector2 offset = boxCollider.offset;
         Vector2 center = (Vector2)targetPos + offset;
 
-        Collider2D hit = Physics2D.OverlapBox(center, size, 0f, solidObjectsLayer);
+        Collider2D hit = Physics2D.OverlapBox(center, size, 0f, solidObjectsLayer); 
         return hit == null;
     }
-
 }
