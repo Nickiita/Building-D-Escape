@@ -37,6 +37,7 @@ public class PlayerControler : MonoBehaviour
         }
 
         animator.SetBool("isMoving", movementInput != Vector2.zero);
+
         animator.SetFloat("MoveX", lastMovementDirection.x);
         animator.SetFloat("MoveY", lastMovementDirection.y);
     }
