@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -14141,7 +14140,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 5.58, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.7867, y: 1.7867, z: 1.7867}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1515616614}
@@ -14187,7 +14186,7 @@ SpriteRenderer:
   m_SortingLayerID: -641799027
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 46627ceb286ee34489a94bdccea61c5c, type: 3}
+  m_Sprite: {fileID: -1625680992, guid: 87e3db258f81cca4e9b28a12c064d06f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -14234,14 +14233,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.77, y: 1}
+    oldSize: {x: 0.15, y: 0.38}
     newSize: {x: 0.77, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.77, y: 1}
+  m_Size: {x: 0.43, y: 0.49}
   m_EdgeRadius: 3
 --- !u!114 &1133987887
 MonoBehaviour:
@@ -14256,7 +14255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2102834757}
-  interactDistance: 3
+  interactDistance: 2
   uiSlots:
   - {fileID: 1290108987}
   - {fileID: 1795604960}
@@ -14719,7 +14718,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.1846914, y: -1.0883698, z: 0}
-  m_LocalScale: {x: 6.4094, y: 6.4094, z: 6.4094}
+  m_LocalScale: {x: 1.6506768, y: 1.6506768, z: 1.6506768}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1515616614}
@@ -14737,7 +14736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2102834757}
-  interactDistance: 3
+  interactDistance: 2
   uiSlots:
   - {fileID: 1290108987}
   - {fileID: 1795604960}
@@ -14778,14 +14777,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.1, y: 0.1}
+    oldSize: {x: 0.29, y: 0.29}
     newSize: {x: 0.1, y: 0.1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1}
+  m_Size: {x: 0.43, y: 0.32}
   m_EdgeRadius: 0
 --- !u!212 &1760023673
 SpriteRenderer:
@@ -14828,7 +14827,7 @@ SpriteRenderer:
   m_SortingLayerID: -641799027
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ce987a9eed1fa5c4c818783d0c52071a, type: 3}
+  m_Sprite: {fileID: -1335402311, guid: 87e3db258f81cca4e9b28a12c064d06f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
