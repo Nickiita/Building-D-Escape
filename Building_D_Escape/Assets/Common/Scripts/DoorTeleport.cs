@@ -13,5 +13,5 @@ public class DoorTeleport : MonoBehaviour
             other.transform.position = destination.position; // Перемещение игрока
         }
     }
-}
 
+}
