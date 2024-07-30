@@ -11,7 +11,22 @@ public class Anim_Security : MonoBehaviour
     private Vector2 movementInput;
 
 
+    void Start()
+    {
+                StartCoroutine(CheckEvery200ms());
 
+    }
+IEnumerator CheckEvery200ms()
+    {
+        while (true)
+        {
+
+            // Здесь ваш код, который должен выполняться каждые 0.2 секунды
+            Debug.Log("Это сообщение выводится каждые 1 секунды");
+
+            yield return new WaitForSeconds(1f);
+        }
+    }
 
     private void Awake()
     {
@@ -31,7 +46,7 @@ public class Anim_Security : MonoBehaviour
             }else if(mov_x < 0) {
                 horizontalDirection = -1;
             }else {
-                horizontalDirection = 0;Ы
+                horizontalDirection = 0;
             }
         }else {
             if (mov_y > 0) {
@@ -42,6 +57,41 @@ public class Anim_Security : MonoBehaviour
                 verticalDirection = 0;
             }
         }
+
+        // if (transform.position.x > lastPosition.x)
+        // {
+        //     horizontalDirection = 1;
+        // }
+        // else if (transform.position.x < lastPosition.x)
+        // {
+        //     horizontalDirection = -1;
+        // }
+        // else
+        // {
+        //     horizontalDirection = 0;
+        // }
+
+        // if (transform.position.y > lastPosition.y)
+        // {
+        //     verticalDirection = 1;
+        // }
+        // else if (transform.position.y < lastPosition.y)
+        // {
+        //     verticalDirection = -1;
+        // }
+        // else
+        // {
+        //     verticalDirection = 0;
+        // }
+
+
+        // if (Math.Abs(transform.position.y) > Math.Abs(transform.position.x))
+        // {
+        //     horizontalDirection = 0; 
+        // }else {
+        //     verticalDirection = 0;
+
+        // }
 
 
 
