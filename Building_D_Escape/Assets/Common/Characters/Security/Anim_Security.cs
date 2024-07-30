@@ -31,7 +31,7 @@ public class Anim_Security : MonoBehaviour
             }else if(mov_x < 0) {
                 horizontalDirection = -1;
             }else {
-                horizontalDirection = 0;Ы
+                horizontalDirection = 0;
             }
         }else {
             if (mov_y > 0) {
