@@ -1,20 +1,73 @@
+// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
 
-using System.Collections.Generic;
+// public class NPSFollow : MonoBehaviour
+
+// {
+
+//     public GameObject player;
+//     public float speed;
+
+//     private float distance;
+//     public float followDistance;
+
+
+//     void Start()
+//     {
+
+//     }
+
+// //     void Update(){
+// //         distance =Vector2.Distance(transform.position, player.transform.position);
+// //         Vector2 direction = player.transform.position - transform.position;
+// //         direction.Normalize();
+        
+
+
+// //         if(distance < followDistance) {
+// //             transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+// //         }
+// //     }
+// // }
+
+
+
+// void Update()
+// {
+//     distance = Vector2.Distance(transform.position, player.transform.position);
+//     Vector2 direction = player.transform.position - transform.position;
+//     direction.Normalize();
+
+//     // Проверяем, есть ли столкновение с любой из стен
+//     RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, followDistance, LayerMask.GetMask("SolidObjects"));
+//     if (hit.collider != null)
+//     {
+//         // Если есть столкновение, то вычисляем новое направление движения, обходя стену
+//         direction = Vector2.Perpendicular(hit.normal).normalized;
+//     }
+
+//     if (distance < followDistance)
+//     {
+//         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position + (Vector3)direction * speed * Time.deltaTime, speed * Time.deltaTime);
+//     }
+// }
+// }
+
 
 using UnityEngine;
 using UnityEngine.AI;
 using KnightAdventure.Utils;
 using System;
 
-public class EnemyAI : MonoBehaviour
-{
-    private Animator animator;
+public class EnemyAI : MonoBehaviour {
+        private Animator animator;
 
 
     [SerializeField] private State _startingState;
-    // [SerializeField] private float _roamingDistanceMax = 7f;
-    // [SerializeField] private float _roamimgDistanceMin = 3f;
-    // [SerializeField] private float _roamimgTimerMax = 2f;
+    [SerializeField] private float _roamingDistanceMax = 7f;
+    [SerializeField] private float _roamimgDistanceMin = 3f;
+    [SerializeField] private float _roamimgTimerMax = 2f;
 
     [SerializeField] private bool _isChasingEnemy = false;
     [SerializeField] private float _chasingDistance = 4f;
@@ -27,7 +80,7 @@ public class EnemyAI : MonoBehaviour
 
     private NavMeshAgent _navMeshAgent;
     private State _currentState;
-    // private float _roamingTimer;
+    private float _roamingTimer;
     private Vector3 _roamPosition;
     private Vector3 _startingPosition;
 
@@ -41,37 +94,22 @@ public class EnemyAI : MonoBehaviour
     // public event EventHandler OnEnemyAttack;
 
     public GameObject playerObject;
-    public Vector3 playerPosition;
+    public Vector3 playerPosition; 
 
-    public List<Vector3> roamingPoints;
-    private int roamingCurrentIndex = 0;
-    void Start()
-    {
-        roamingPoints = new List<Vector3>
-        {
-            new Vector3(60, 0, 0),
-            new Vector3(60, 40, 0),
-        };
-    }
 
-    public bool IsRunning
-    {
-        get
-        {
-            if (_navMeshAgent.velocity == Vector3.zero)
-            {
+
+    public bool IsRunning {
+        get {
+            if (_navMeshAgent.velocity == Vector3.zero) {
                 return false;
-            }
-            else
-            {
+            } else {
                 return true;
             }
         }
     }
 
 
-    private enum State
-    {
+    private enum State {
         Idle,
         Roaming,
         Chasing,
@@ -79,8 +117,7 @@ public class EnemyAI : MonoBehaviour
         Death
     }
 
-    private void Awake()
-    {
+    private void Awake() {
         animator = GetComponent<Animator>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.updateRotation = false;
@@ -92,10 +129,9 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-
-        if (playerObject != null){
+    private void Update() {
+                if (playerObject != null)
+        {
             playerPosition = playerObject.transform.position;
         }
         StateHandler();
@@ -103,17 +139,25 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-    private void StateHandler()
-    {
-        switch (_currentState)
-        {
+    private void StateHandler() {
+        switch (_currentState) {
             case State.Roaming:
-                Roaming();
+                _roamingTimer -= Time.deltaTime;
+                if (_roamingTimer < 0) {
+                    Roaming();
+                    _roamingTimer = _roamimgTimerMax;
+                }
                 CheckCurrentState();
                 break;
             case State.Chasing:
                 ChasingTarget();
                 CheckCurrentState();
+                break;
+            // case State.Attacking:
+            //     AttackingTarget();
+            //     CheckCurrentState();
+            //     break;
+            case State.Death:
                 break;
             default:
             case State.Idle:
@@ -121,42 +165,38 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void ChasingTarget()
-    {
+    private void ChasingTarget() {
         _navMeshAgent.SetDestination(playerPosition);
     }
 
-    public float GetRoamingAnimationSpeed()
-    {
+    public float GetRoamingAnimationSpeed() {
         return _navMeshAgent.speed / _roamingSpeed;
     }
 
-    private void CheckCurrentState()
-    {
+    private void CheckCurrentState() {
         float distanceToPlayer = Vector3.Distance(transform.position, playerPosition);
         State newState = State.Roaming;
 
-        if (_isChasingEnemy)
-        {
-            if (distanceToPlayer <= _chasingDistance)
-            {
+        if (_isChasingEnemy) {
+            if (distanceToPlayer <= _chasingDistance) {
                 newState = State.Chasing;
             }
         }
-        if (newState != _currentState)
-        {
-            if (newState == State.Chasing)
-            {
+
+        // if (_isAttackingEnemy) {
+        //     if (distanceToPlayer <= _attackingDistance) {
+        //         newState = State.Attacking;
+        //     }
+        // }
+
+        if (newState != _currentState) {
+            if (newState == State.Chasing) {
                 _navMeshAgent.ResetPath();
                 _navMeshAgent.speed = _chasingSpeed;
-            }
-            else if (newState == State.Roaming)
-            {
-                // _roamingTimer = 0f;
+            } else if (newState == State.Roaming) {
+                _roamingTimer = 0f;
                 _navMeshAgent.speed = _roamingSpeed;
-            }
-            else if (newState == State.Attacking)
-            {
+            } else if (newState == State.Attacking) {
                 _navMeshAgent.ResetPath();
             }
 
@@ -164,11 +204,16 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    // private void AttackingTarget() {
+    //     if (Time.time > _nextAttackTime) {
+    //         OnEnemyAttack?.Invoke(this, EventArgs.Empty);
 
-    private void MovementDirectionHandler()
-    {
-        if (Time.time > _nextCheckDirectionTime)
-        {
+    //         _nextAttackTime = Time.time + _attackRate;
+    //     }
+    // }
+
+    private void MovementDirectionHandler() {
+        if (Time.time > _nextCheckDirectionTime) {
 
 
             _lastPosition = transform.position;
@@ -177,28 +222,24 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-    private void Roaming()
-    {
-        // _startingPosition = transform.position;
-        
-
-        int nextRoamingIndex = (roamingCurrentIndex + 1) % roamingPoints.Count;
-        if (Math.Abs(transform.position.x - roamingPoints[nextRoamingIndex].x )< 5 && Math.Abs(transform.position.y - roamingPoints[nextRoamingIndex].y )< 5) {
-            // дошел до точки
-            _roamPosition = GetRoamingPosition();
-        }
+    private void Roaming() {
+        _startingPosition = transform.position;
+        _roamPosition = GetRoamingPosition();
         _navMeshAgent.SetDestination(_roamPosition);
     }
 
 
 
-    private Vector3 GetRoamingPosition()
-    {
-        // return _startingPosition + Utils.GetRandomDir() * UnityEngine.Random.Range(_roamimgDistanceMin, _roamingDistanceMax);
-        Vector3 result = roamingPoints[roamingCurrentIndex];
-        roamingCurrentIndex = (roamingCurrentIndex + 1) % roamingPoints.Count;
-        return result;
+    private Vector3 GetRoamingPosition() {
+        return _startingPosition + Utils.GetRandomDir() * UnityEngine.Random.Range(_roamimgDistanceMin, _roamingDistanceMax);
     }
 
+    // private void ChangeFacingDirection(Vector3 sourcePosition, Vector3 targetPosition) {
+    //     if (sourcePosition.x > targetPosition.x) {
+    //         transform.rotation = Quaternion.Euler(0, -180, 0);
+    //     } else {
+    //         transform.rotation = Quaternion.Euler(0, 0, 0);
+    //     }
+    // }
 
 }
