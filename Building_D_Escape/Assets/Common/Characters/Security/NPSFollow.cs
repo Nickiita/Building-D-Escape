@@ -12,13 +12,11 @@ public class EnemyAI : MonoBehaviour
 
 
     [SerializeField] private State _startingState;
-    // [SerializeField] private float _roamingDistanceMax = 7f;
-    // [SerializeField] private float _roamimgDistanceMin = 3f;
-    // [SerializeField] private float _roamimgTimerMax = 2f;
 
     [SerializeField] private bool _isChasingEnemy = false;
     [SerializeField] private float _chasingDistance = 4f;
     [SerializeField] private float _chasingSpeedMultiplier = 2f;
+
 
     private NavMeshAgent _navMeshAgent;
     private State _currentState;
@@ -32,8 +30,6 @@ public class EnemyAI : MonoBehaviour
     private float _checkDirectionDuration = 0.1f;
     private Vector3 _lastPosition;
 
-    // public event EventHandler OnEnemyAttack;
-
     public GameObject playerObject;
     public Vector3 playerPosition;
 
@@ -41,11 +37,7 @@ public class EnemyAI : MonoBehaviour
     private int roamingCurrentIndex = 0;
     void Start()
     {
-        // roamingPoints = new List<Vector3>
-        // {
 
-        // };
-        _roamPosition = GetRoamingPosition();
     }
 
     public bool IsRunning
@@ -68,7 +60,9 @@ public class EnemyAI : MonoBehaviour
     {
         Idle,
         Roaming,
-        Chasing
+        Chasing,
+        Attacking,
+        Death
     }
 
     private void Awake()
@@ -147,7 +141,10 @@ public class EnemyAI : MonoBehaviour
                 // _roamingTimer = 0f;
                 _navMeshAgent.speed = _roamingSpeed;
             }
-            
+            else if (newState == State.Attacking)
+            {
+                _navMeshAgent.ResetPath();
+            }
 
             _currentState = newState;
         }
@@ -168,14 +165,14 @@ public class EnemyAI : MonoBehaviour
 
     private void Roaming()
     {
+        // _startingPosition = transform.position;
+        
 
         int nextRoamingIndex = (roamingCurrentIndex + 1) % roamingPoints.Count;
         if (Math.Abs(transform.position.x - roamingPoints[nextRoamingIndex].x )< 5 && Math.Abs(transform.position.y - roamingPoints[nextRoamingIndex].y )< 5) {
             // дошел до точки
             _roamPosition = GetRoamingPosition();
         }
-                
-
         _navMeshAgent.SetDestination(_roamPosition);
     }
 
