@@ -12,14 +12,22 @@ public class EnemyAI : MonoBehaviour
 
 
     [SerializeField] private State _startingState;
+    // [SerializeField] private float _roamingDistanceMax = 7f;
+    // [SerializeField] private float _roamimgDistanceMin = 3f;
+    // [SerializeField] private float _roamimgTimerMax = 2f;
 
     [SerializeField] private bool _isChasingEnemy = false;
     [SerializeField] private float _chasingDistance = 4f;
     [SerializeField] private float _chasingSpeedMultiplier = 2f;
 
+    // [SerializeField] private bool _isAttackingEnemy = false;
+    // [SerializeField] private float _attackingDistance = 2f;
+    // [SerializeField] private float _attackRate = 2f;
+    // private float _nextAttackTime = 0f;
 
     private NavMeshAgent _navMeshAgent;
     private State _currentState;
+    // private float _roamingTimer;
     private Vector3 _roamPosition;
     private Vector3 _startingPosition;
 
@@ -29,6 +37,8 @@ public class EnemyAI : MonoBehaviour
     private float _nextCheckDirectionTime = 0f;
     private float _checkDirectionDuration = 0.1f;
     private Vector3 _lastPosition;
+
+    // public event EventHandler OnEnemyAttack;
 
     public GameObject playerObject;
     public Vector3 playerPosition;
