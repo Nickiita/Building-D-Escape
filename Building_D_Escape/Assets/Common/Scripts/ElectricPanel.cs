@@ -4,11 +4,11 @@ using UnityEngine.SceneManagement;
 public class SceneSwitcher : MonoBehaviour
 {
     public string WireScene;
-    private string currentScene;
+    public static string PreviousScene { get; private set; }
 
     void Start()
     {
-        currentScene = SceneManager.GetActiveScene().name;
+        PreviousScene = SceneManager.GetActiveScene().name;
     }
 
     void OnMouseDown()
@@ -16,8 +16,11 @@ public class SceneSwitcher : MonoBehaviour
         SceneManager.LoadScene(WireScene);
     }
 
-    public void ReturnToPreviousScene()
+    public static void ReturnToPreviousScene()
     {
-        SceneManager.LoadScene(currentScene);
+        if (!string.IsNullOrEmpty(PreviousScene))
+        {
+            SceneManager.LoadScene(PreviousScene);
+        }
     }
 }
