@@ -1,22 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.SceneManagement;
 
-using UnityEngine;
-
-public class NPCCollision : MonoBehaviour
+public class NPCCatch : MonoBehaviour
 {
-    void OnCollisionEnter(Collision collision)
+    public GameObject playerObject;
+
+
+    public void ReloadScene()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void Update()
+    {
+        float player_x = playerObject.transform.position.x;
+        float player_y = playerObject.transform.position.y;
+        float npc_x = transform.position.x;
+        float npc_y = transform.position.y;
+
+        if (Math.Abs(player_x - npc_x) < 0.25 && Math.Abs(player_y - npc_y) < 1)
         {
-            Debug.Log("NPC столкнулся с игроком!");
-            OnPlayerCollision();
+            ReloadScene();
         }
     }
 
-    void OnPlayerCollision()
-    {
-        Debug.Log("Вызвана функция OnPlayerCollision");
-    }
 }
