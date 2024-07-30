@@ -69,10 +69,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: '&&_0'
+      name: Screwdriver
       rect:
         serializedVersion: 2
         x: 2
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8fcd74b855437ae4cbe3b51d8623f7bd
-      internalID: -1335402311
+      spriteID: fb59b1d2a280887489fe7bd48ef1947f
+      internalID: 85849041
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: '&&_1'
+      name: Box
       rect:
         serializedVersion: 2
         x: 17
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7eb1054d31c131f46be34f307f0f8c98
-      internalID: -1321726127
+      spriteID: 0aca82f565635f849a13f974f12fa988
+      internalID: 1581974004
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: '&&_2'
+      name: Axe
       rect:
         serializedVersion: 2
         x: 65
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 518efb14bccbd6e45a013b14beb3a906
-      internalID: -1625680992
+      spriteID: 812350b6b377f9e44a3836281b8c63ca
+      internalID: -581288170
       vertices: []
       indices: 
       edges: []
@@ -183,9 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      '&&_0': -1335402311
-      '&&_1': -1321726127
-      '&&_2': -1625680992
+      Axe: -581288170
+      Box: 1581974004
+      Screwdriver: 85849041
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
