@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - SolidObjects
+  - ContainerMaze
   layers:
   - Default
   - TransparentFX
