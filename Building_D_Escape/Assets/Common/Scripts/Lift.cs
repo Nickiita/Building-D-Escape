@@ -5,7 +5,7 @@ public class SceneLoader : MonoBehaviour
 {
     public string sceneToLoad; // Имя сцены, которую нужно загрузить
 
-    private void OnMouseDown()
+    private void OnTriggerEnter2D(Collider2D other)
     {
         LoadScene();
     }
