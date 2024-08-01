@@ -10,7 +10,7 @@ public class FinalTeleport : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-           SceneManager.LoadScene("Final");
+           SceneManager.LoadScene("Cutscene");
         }
     }
 
